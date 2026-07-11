@@ -1,0 +1,10 @@
+function Dashboard() {
+  return (
+    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-2xl shadow-black/20">
+      <h2 className="text-2xl font-semibold">Dashboard</h2>
+      <p className="mt-3 text-slate-400">Shared dashboard placeholder for upcoming analytics and operations views.</p>
+    </section>
+  );
+}
+
+export default Dashboard;

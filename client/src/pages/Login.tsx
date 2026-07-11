@@ -1,0 +1,10 @@
+function Login() {
+  return (
+    <section className="mx-auto max-w-xl rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-2xl shadow-black/20">
+      <h2 className="text-2xl font-semibold">Login</h2>
+      <p className="mt-3 text-slate-400">Authentication will be implemented in the next phase.</p>
+    </section>
+  );
+}
+
+export default Login;
