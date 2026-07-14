@@ -1,204 +1,424 @@
 # Last Mile Delivery Tracker
 
-A full-stack delivery operations platform for managing orders, agents, zones, pricing, tracking, and analytics.
+A full-stack **Last Mile Delivery Management System** built using the MERN stack. The application enables customers to place delivery orders while providing administrators with complete operational control over zones, areas, pricing, agents, orders, tracking, notifications, and analytics.
+
+---
+
+# Live Demo
+
+### Frontend
+https://last-mile-frontend.onrender.com
+
+### Backend API
+https://last-mile-backend-9m4d.onrender.com/api/v1
+
+### Health Check
+https://last-mile-backend-9m4d.onrender.com/api/v1/health
+
+---
+
+# Demo Credentials
+
+## Admin
+
+**Email**
+
+```
+admintest@test.com
+```
+
+**Password**
+
+```
+TestAdmin123!
+```
+
+You can use these credentials to explore all admin features including:
+
+- Dashboard
+- Zone Management
+- Area Management
+- Rate Cards
+- Delivery Agents
+- Orders
+- Assignment Engine
+- Tracking
+- Notifications
+- Analytics
 
 ---
 
 ## Features
 
-- **Customer Portal** — Create orders, view order history, track deliveries, reschedule failed deliveries
-- **Admin Portal** — Manage zones, areas, rate cards, agents, orders; analytics dashboard; manual/auto assignment
-- **Authentication** — JWT-based auth with role-based access (customer, admin, agent)
-- **Zone & Area Management** — Define delivery zones and areas with hierarchical mapping
-- **Rate Cards** — B2B/B2C segmented pricing between zone pairs
-- **Pricing Engine** — Calculates chargeable weight (actual vs volumetric), applies rate cards, COD surcharge
-- **Agent Management** — CRUD for delivery agents, status tracking, area assignments
-- **Order Management** — Full lifecycle: create, assign, track, cancel, fail, reschedule, deliver
-- **Assignment Engine** — Auto-assigns best agent based on area/zone matching and workload balancing
-- **Tracking Timeline** — Automatic event recording on every status change
-- **Failed Delivery & Rescheduling** — Mark failed with reason, customer reschedule, auto-reassign
-- **Notifications** — In-app notification bell with unread counts
-- **Analytics Dashboard** — Aggregated metrics with date range filtering (today, 7d, 30d, custom)
-- **Security** — Rate limiting, Helmet headers, CORS, Zod validation, bcrypt hashing, MongoDB injection sanitization
+### Customer Portal
+
+- Customer Registration & Login
+- Create Delivery Orders
+- Live Price Estimation
+- View Order History
+- Order Tracking Timeline
+- Cancel Orders
+- Reschedule Failed Deliveries
+- Notifications
+
+### Admin Portal
+
+- Dashboard
+- Zone Management
+- Area Management
+- Rate Card Management
+- Delivery Agent Management
+- Customer Order Management
+- Manual Agent Assignment
+- Automatic Agent Assignment
+- Failed Delivery Management
+- Notifications
+- Analytics Dashboard
+
+### Core Modules
+
+- JWT Authentication
+- Role-Based Authorization
+- Zone & Area Management
+- Pricing Engine
+- Rate Cards (B2B/B2C)
+- Delivery Assignment Engine
+- Tracking Timeline
+- Failed Delivery & Rescheduling
+- Notification System
+- Analytics Dashboard
+
+### Security
+
+- JWT Authentication
+- bcrypt Password Hashing
+- Helmet Security Headers
+- MongoDB Injection Protection
+- Rate Limiting
+- Zod Validation
+- Role-Based Access Control
+- CORS Protection
 
 ---
 
-## Tech Stack
+# Tech Stack
 
-**Frontend** — React 18, TypeScript, Vite, Tailwind CSS v4, React Router v7, Recharts
+## Frontend
 
-**Backend** — Node.js, Express 5, Mongoose 9, Zod validation
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- Recharts
 
-**Database** — MongoDB Atlas
+## Backend
 
-**Auth** — JWT (1h access tokens, bcrypt hashing)
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- Zod
+- Nodemailer
+
+## Database
+
+- MongoDB Atlas
 
 ---
 
-## Folder Structure
+# Folder Structure
 
 ```
 last-mile-delivery-tracker/
-├── client/                    # React frontend
+│
+├── client/
 │   ├── src/
-│   │   ├── components/        # Reusable UI components
-│   │   ├── context/           # AuthContext provider
-│   │   ├── layouts/           # Layout, AdminLayout
-│   │   ├── pages/             # Route pages (admin/, customer/, root)
-│   │   └── services/          # API client modules
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   └── services/
 │   └── ...
-├── server/                    # Express backend
-│   ├── config/                # Env & DB config
-│   ├── constants/             # Messages & roles
-│   ├── controllers/           # Request handlers
-│   ├── middleware/             # Auth, role, error handling
-│   ├── models/                # Mongoose schemas
-│   ├── routes/                # Express routers
-│   ├── services/              # Business logic
-│   ├── utils/                 # Helpers
-│   └── validators/            # Zod validation schemas
-├── docs/                      # Documentation
-│   ├── api.md                 # Full API reference
-│   ├── database.md            # Schema design
-│   └── system-design.md       # Architecture write-up
-├── .env.example
+│
+├── server/
+│   ├── config/
+│   ├── constants/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   └── validators/
+│
+├── docs/
+│   ├── api.md
+│   ├── database.md
+│   └── system-design.md
+│
 ├── DEPLOYMENT.md
 ├── TESTING.md
+├── .env.example
 └── README.md
 ```
 
 ---
 
-## Installation
+# Installation
 
-### Prerequisites
+## Prerequisites
 
 - Node.js 18+
-- MongoDB Atlas cluster (or local MongoDB)
+- MongoDB Atlas
 
-### Setup
+---
+
+## Clone Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/Soham-Ambar/last-mile-delivery-tracker.git
+
 cd last-mile-delivery-tracker
-
-# Backend
-cd server
-cp .env.example .env   # Edit .env with your MongoDB URI and JWT secret
-npm install
-npm run dev            # Starts on http://localhost:5000
-
-# Frontend (new terminal)
-cd client
-cp .env.example .env   # Edit VITE_API_URL if needed
-npm install
-npm run dev            # Starts on http://localhost:5173
 ```
 
 ---
 
-## Environment Variables
+## Backend
 
-See `.env.example` for all required variables:
+```bash
+cd server
+
+cp .env.example .env
+
+npm install
+
+npm run dev
+```
+
+Runs on
+
+```
+http://localhost:5000
+```
+
+---
+
+## Frontend
+
+```bash
+cd client
+
+cp .env.example .env
+
+npm install
+
+npm run dev
+```
+
+Runs on
+
+```
+http://localhost:5173
+```
+
+---
+
+# Environment Variables
+
+See
+
+```
+.env.example
+```
+
+and
+
+```
+server/.env.example
+```
+
+Required variables include
 
 | Variable | Description |
 |----------|-------------|
-| `PORT` | Server port (default: 5000) |
-| `NODE_ENV` | `development` or `production` |
-| `MONGO_URI` | MongoDB Atlas connection string |
-| `JWT_SECRET` | Secret key for JWT signing (min 32 chars) |
-| `CLIENT_URL` | Frontend URL for CORS |
-| `SMTP_HOST` | SMTP server hostname |
-| `SMTP_PORT` | SMTP port |
-| `SMTP_USER` | SMTP username |
-| `SMTP_PASS` | SMTP password |
-| `EMAIL_FROM` | Sender email address |
+| PORT | Backend Port |
+| NODE_ENV | Environment |
+| MONGO_URI | MongoDB Atlas URI |
+| JWT_SECRET | JWT Secret |
+| CLIENT_URL | Frontend URL |
+| SMTP_HOST | SMTP Server |
+| SMTP_PORT | SMTP Port |
+| SMTP_USER | SMTP Username |
+| SMTP_PASS | SMTP Password |
+| EMAIL_FROM | Sender Email |
 
 ---
 
-## Running the Project
+# Running
+
+Backend
 
 ```bash
-# Backend (development with auto-reload)
-cd server && npm run dev
+npm run dev
+```
 
-# Backend (production)
-cd server && npm start
+Frontend
 
-# Frontend (development)
-cd client && npm run dev
+```bash
+npm run dev
+```
 
-# Frontend (production build)
-cd client && npm run build
+Production Backend
+
+```bash
+npm start
+```
+
+Production Frontend
+
+```bash
+npm run build
 ```
 
 ---
 
-## API Documentation
+# API Documentation
 
-See [docs/api.md](docs/api.md) for complete API reference covering:
+Complete API documentation is available in
 
-- Authentication (register, login, profile)
-- Zone, Area, Rate Card, Agent CRUD
-- Order management (create, list, update, cancel)
-- Assignment (manual, auto, unassign)
-- Tracking timeline
-- Failed delivery & rescheduling
-- Pricing estimate
+```
+docs/api.md
+```
+
+Includes
+
+- Authentication
+- Zones
+- Areas
+- Rate Cards
+- Pricing
+- Agents
+- Orders
+- Assignment
+- Tracking
+- Failed Delivery
 - Notifications
-- Analytics dashboard
+- Analytics
 
 ---
 
-## Database Schema
+# Database Documentation
 
-See [docs/database.md](docs/database.md) for full schema documentation covering:
+See
 
-- Users, Zones, Areas, Agents, Orders, Rate Cards, Tracking Events, Notifications
-- Soft delete pattern
-- Indexes and relationships
+```
+docs/database.md
+```
+
+Includes
+
+- Collections
+- Relationships
+- Indexes
+- Schema Design
 
 ---
 
-## System Design
+# System Design
 
-See [docs/system-design.md](docs/system-design.md) for an architectural overview (800 words) covering:
+See
 
-- Architecture (frontend, backend, database)
-- Zone detection
-- Pricing engine
-- Auto assignment algorithm
-- Failed delivery workflow
+```
+docs/system-design.md
+```
+
+Covers
+
+- Architecture
+- Zone Detection
+- Pricing Engine
+- Auto Assignment Logic
+- Failed Delivery Handling
 - Security
 
 ---
 
-## Testing
+# Testing
 
-See [TESTING.md](TESTING.md) for:
+See
 
-- API endpoint checklist
-- Manual UI testing checklist
-- Security verification checklist
-- Known limitations
+```
+TESTING.md
+```
 
----
+Contains
 
-## Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for platform-specific guides (Render + Vercel) covering:
-
-- Environment variable configuration
-- Build commands
-- MongoDB Atlas setup
-- Pre-deployment checklist
+- API Testing
+- UI Testing
+- Security Testing
+- Validation Checklist
 
 ---
 
-## Live Demo
+# Deployment
 
-| | URL |
-|---|---|
-| **Frontend** | (To be added) |
-| **Backend** | (To be added) |
+Deployment guide available in
+
+```
+DEPLOYMENT.md
+```
+
+Includes
+
+- Render Backend
+- Render Frontend
+- Environment Variables
+- MongoDB Atlas
+- Build Commands
+
+---
+
+# Project Highlights
+
+- MERN Stack
+- Production Deployment
+- Responsive UI
+- Modular Architecture
+- Clean REST APIs
+- JWT Authentication
+- Auto Assignment Engine
+- Dynamic Pricing Engine
+- Tracking Timeline
+- Notification System
+- Analytics Dashboard
+
+---
+
+# Repository
+
+GitHub
+
+https://github.com/Soham-Ambar/last-mile-delivery-tracker
+
+---
+
+# Author
+
+**Soham Ambar**
+
+GitHub
+
+https://github.com/Soham-Ambar
+
+---
+
+## Note for Evaluators
+
+- The application is fully deployed and ready for testing.
+- Demo admin credentials are provided above.
+- Customer accounts can be created using the registration page.
+- All APIs are documented under `docs/api.md`.
+- The system design, database schema, deployment guide, and testing documentation are included in the repository.
