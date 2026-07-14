@@ -1,18 +1,23 @@
 import { Outlet, NavLink } from 'react-router-dom';
-
-const navItems = [
-  { label: 'Home', to: '/' },
-  { label: 'Login', to: '/login' },
-  { label: 'Register', to: '/register' },
-  { label: 'Dashboard', to: '/dashboard' },
-  { label: 'Admin Dashboard', to: '/admin-dashboard' },
-  { label: 'Agent Dashboard', to: '/agent-dashboard' },
-  { label: 'Customer Dashboard', to: '/customer-dashboard' },
-  { label: 'Orders', to: '/orders' },
-  { label: 'Tracking', to: '/tracking' },
-];
+import { useAuth } from '../context/AuthContext';
+import NotificationBell from '../components/NotificationBell';
 
 function Layout() {
+  const { isAuthenticated, user, logout } = useAuth();
+
+  const navItems = isAuthenticated
+    ? [
+        { label: 'Dashboard', to: '/dashboard' },
+        ...(user?.role === 'admin' ? [{ label: 'Admin Dashboard', to: '/admin' }] : []),
+        ...(user?.role === 'customer' ? [{ label: 'Customer Dashboard', to: '/customer-dashboard' }] : []),
+        ...(user?.role === 'agent' ? [{ label: 'Agent Dashboard', to: '/agent-dashboard' }] : []),
+      ]
+    : [
+        { label: 'Home', to: '/' },
+        { label: 'Login', to: '/login' },
+        { label: 'Register', to: '/register' },
+      ];
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur">
@@ -20,7 +25,8 @@ function Layout() {
           <NavLink to="/" className="text-xl font-semibold tracking-tight text-slate-100 transition hover:text-white">
             Last Mile Delivery Tracker
           </NavLink>
-          <nav className="flex flex-wrap gap-3 text-sm">
+
+          <nav className="flex flex-wrap items-center gap-3 text-sm">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -35,6 +41,19 @@ function Layout() {
                 {item.label}
               </NavLink>
             ))}
+
+            {isAuthenticated && (
+              <>
+                <NotificationBell />
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="rounded-full border border-slate-700 bg-slate-900 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  Logout
+                </button>
+              </>
+            )}
           </nav>
         </div>
       </header>

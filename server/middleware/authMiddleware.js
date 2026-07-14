@@ -6,7 +6,7 @@ function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(httpStatus.UNAUTHORIZED).json({
-      status: 'error',
+      success: false,
       message: AUTH_UNAUTHORIZED,
     });
   }
@@ -19,7 +19,7 @@ function authMiddleware(req, res, next) {
     next();
   } catch (error) {
     return res.status(httpStatus.UNAUTHORIZED).json({
-      status: 'error',
+      success: false,
       message: AUTH_TOKEN_INVALID,
     });
   }

@@ -2,33 +2,27 @@ const { NODE_ENV } = require('../config/env');
 
 function formatMessage(level, message, meta) {
   const timestamp = new Date().toISOString();
-  const base = `[${timestamp}] [${level}] ${message}`;
 
-  if (!meta) {
-    return base;
+  if (NODE_ENV === 'production') {
+    return JSON.stringify({ timestamp, level, message, ...(meta ? { meta } : {}) });
   }
 
-  return `${base} ${JSON.stringify(meta)}`;
+  const base = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
+  return meta ? `${base} ${JSON.stringify(meta)}` : base;
 }
 
 function log(level, message, meta) {
-  const output = formatMessage(level, message, meta);
+  if (NODE_ENV === 'test') return;
 
-  if (NODE_ENV === 'test') {
-    return;
-  }
+  const output = formatMessage(level, message, meta);
 
   if (level === 'error') {
     console.error(output);
-    return;
-  }
-
-  if (level === 'warn') {
+  } else if (level === 'warn') {
     console.warn(output);
-    return;
+  } else {
+    console.log(output);
   }
-
-  console.log(output);
 }
 
 module.exports = {

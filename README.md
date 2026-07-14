@@ -1,80 +1,204 @@
 # Last Mile Delivery Tracker
 
-## Project Overview
-Last Mile Delivery Tracker is the foundation for a delivery operations platform designed to support drivers, dispatchers, and customers with modern route tracking and order management.
+A full-stack delivery operations platform for managing orders, agents, zones, pricing, tracking, and analytics.
+
+---
 
 ## Features
-- Placeholder frontend pages for Home, Login, Register, Dashboard, Admin Dashboard, Agent Dashboard, Customer Dashboard, Orders, and Tracking
-- Shared React layout and responsive navigation
-- Express backend API with health check endpoint
-- MongoDB Atlas-ready database configuration
-- Clean project structure for frontend and backend development
 
-## Current Progress
-- Foundation phase complete
-- Backend architecture and health endpoint verified
-- Frontend build and routing verified
-- Documentation and developer experience improved
+- **Customer Portal** — Create orders, view order history, track deliveries, reschedule failed deliveries
+- **Admin Portal** — Manage zones, areas, rate cards, agents, orders; analytics dashboard; manual/auto assignment
+- **Authentication** — JWT-based auth with role-based access (customer, admin, agent)
+- **Zone & Area Management** — Define delivery zones and areas with hierarchical mapping
+- **Rate Cards** — B2B/B2C segmented pricing between zone pairs
+- **Pricing Engine** — Calculates chargeable weight (actual vs volumetric), applies rate cards, COD surcharge
+- **Agent Management** — CRUD for delivery agents, status tracking, area assignments
+- **Order Management** — Full lifecycle: create, assign, track, cancel, fail, reschedule, deliver
+- **Assignment Engine** — Auto-assigns best agent based on area/zone matching and workload balancing
+- **Tracking Timeline** — Automatic event recording on every status change
+- **Failed Delivery & Rescheduling** — Mark failed with reason, customer reschedule, auto-reassign
+- **Notifications** — In-app notification bell with unread counts
+- **Analytics Dashboard** — Aggregated metrics with date range filtering (today, 7d, 30d, custom)
+- **Security** — Rate limiting, Helmet headers, CORS, Zod validation, bcrypt hashing, MongoDB injection sanitization
 
-## Project Structure
-- `client/` — React + Vite frontend code
-- `server/` — Express API backend
-- `docs/` — Project and architecture documentation
-- `mongodb/` — MongoDB helper scripts and initialization guidance
-- `progress.md` — Project status and verification log
+---
 
-## Technology Stack
-- Frontend: React, Vite, React Router, Tailwind CSS
-- Backend: Node.js, Express
-- Database: MongoDB Atlas (Mongoose-ready configuration)
-- API: REST-style endpoints
+## Tech Stack
 
-## Installation
-1. Clone the repository
-2. Create `.env` from `.env.example`
-3. Install frontend dependencies:
-   - `cd client && npm install`
-4. Install backend dependencies:
-   - `cd server && npm install`
+**Frontend** — React 18, TypeScript, Vite, Tailwind CSS v4, React Router v7, Recharts
 
-## Running the Application
-- Frontend: `cd client && npm run dev`
-- Backend: `cd server && npm run dev`
+**Backend** — Node.js, Express 5, Mongoose 9, Zod validation
 
-## MongoDB Atlas Setup
-1. Create a MongoDB Atlas cluster
-2. Create a database user with read/write permissions
-3. Add your application IP address to the network access list
-4. Copy the cluster connection string and set it in `.env` as `MONGO_URI`
+**Database** — MongoDB Atlas
+
+**Auth** — JWT (1h access tokens, bcrypt hashing)
+
+---
 
 ## Folder Structure
-- `client/`
-  - `src/pages/` — route page components
-  - `src/layouts/` — shared layout and navigation
-  - `src/services/` — API client and shared service helpers
-  - `src/hooks/` — custom React hooks
-  - `src/context/` — React context providers
-  - `src/utils/` — utility helpers
 
-- `server/`
-  - `config/` — environment and database bootstrapping
-  - `controllers/` — request handler logic
-  - `routes/` — API route definitions
-  - `middleware/` — error handling and request middleware
-  - `services/` — backend service helpers
-  - `utils/` — reusable helpers and response helpers
-  - `validators/` — request validation stubs
-  - `constants/` — shared constant values
+```
+last-mile-delivery-tracker/
+├── client/                    # React frontend
+│   ├── src/
+│   │   ├── components/        # Reusable UI components
+│   │   ├── context/           # AuthContext provider
+│   │   ├── layouts/           # Layout, AdminLayout
+│   │   ├── pages/             # Route pages (admin/, customer/, root)
+│   │   └── services/          # API client modules
+│   └── ...
+├── server/                    # Express backend
+│   ├── config/                # Env & DB config
+│   ├── constants/             # Messages & roles
+│   ├── controllers/           # Request handlers
+│   ├── middleware/             # Auth, role, error handling
+│   ├── models/                # Mongoose schemas
+│   ├── routes/                # Express routers
+│   ├── services/              # Business logic
+│   ├── utils/                 # Helpers
+│   └── validators/            # Zod validation schemas
+├── docs/                      # Documentation
+│   ├── api.md                 # Full API reference
+│   ├── database.md            # Schema design
+│   └── system-design.md       # Architecture write-up
+├── .env.example
+├── DEPLOYMENT.md
+├── TESTING.md
+└── README.md
+```
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB Atlas cluster (or local MongoDB)
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Soham-Ambar/last-mile-delivery-tracker.git
+cd last-mile-delivery-tracker
+
+# Backend
+cd server
+cp .env.example .env   # Edit .env with your MongoDB URI and JWT secret
+npm install
+npm run dev            # Starts on http://localhost:5000
+
+# Frontend (new terminal)
+cd client
+cp .env.example .env   # Edit VITE_API_URL if needed
+npm install
+npm run dev            # Starts on http://localhost:5173
+```
+
+---
+
+## Environment Variables
+
+See `.env.example` for all required variables:
+
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Server port (default: 5000) |
+| `NODE_ENV` | `development` or `production` |
+| `MONGO_URI` | MongoDB Atlas connection string |
+| `JWT_SECRET` | Secret key for JWT signing (min 32 chars) |
+| `CLIENT_URL` | Frontend URL for CORS |
+| `SMTP_HOST` | SMTP server hostname |
+| `SMTP_PORT` | SMTP port |
+| `SMTP_USER` | SMTP username |
+| `SMTP_PASS` | SMTP password |
+| `EMAIL_FROM` | Sender email address |
+
+---
+
+## Running the Project
+
+```bash
+# Backend (development with auto-reload)
+cd server && npm run dev
+
+# Backend (production)
+cd server && npm start
+
+# Frontend (development)
+cd client && npm run dev
+
+# Frontend (production build)
+cd client && npm run build
+```
+
+---
 
 ## API Documentation
-- `GET /api/v1/health` — health check endpoint
 
-## Future Roadmap
-- Authentication and user role management
-- Real database models and validation
-- Orders and tracking APIs
-- Admin, agent, and customer workflows
-- Notifications and performance optimizations
+See [docs/api.md](docs/api.md) for complete API reference covering:
 
-## Contributors
-- Project foundation prepared in the Last Mile Delivery Tracker workspace
+- Authentication (register, login, profile)
+- Zone, Area, Rate Card, Agent CRUD
+- Order management (create, list, update, cancel)
+- Assignment (manual, auto, unassign)
+- Tracking timeline
+- Failed delivery & rescheduling
+- Pricing estimate
+- Notifications
+- Analytics dashboard
+
+---
+
+## Database Schema
+
+See [docs/database.md](docs/database.md) for full schema documentation covering:
+
+- Users, Zones, Areas, Agents, Orders, Rate Cards, Tracking Events, Notifications
+- Soft delete pattern
+- Indexes and relationships
+
+---
+
+## System Design
+
+See [docs/system-design.md](docs/system-design.md) for an architectural overview (800 words) covering:
+
+- Architecture (frontend, backend, database)
+- Zone detection
+- Pricing engine
+- Auto assignment algorithm
+- Failed delivery workflow
+- Security
+
+---
+
+## Testing
+
+See [TESTING.md](TESTING.md) for:
+
+- API endpoint checklist
+- Manual UI testing checklist
+- Security verification checklist
+- Known limitations
+
+---
+
+## Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for platform-specific guides (Render + Vercel) covering:
+
+- Environment variable configuration
+- Build commands
+- MongoDB Atlas setup
+- Pre-deployment checklist
+
+---
+
+## Live Demo
+
+| | URL |
+|---|---|
+| **Frontend** | (To be added) |
+| **Backend** | (To be added) |
